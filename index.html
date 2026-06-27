@@ -1,107 +1,209 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Threat Investigations | Investigator Quick Reference</title>
-  <meta name="description" content="Threat Investigations Investigator Quick Reference training aid." />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Threat Investigations | Field Reference</title>
+  <meta name="description" content="Threat Investigations field reference training aid."/>
   <style>
     :root{
-      --black:#030508; --chrome:#e8edf4; --blue:#1d7cff; --text:#f6f8fb;
-      --muted:#c2cad6; --green:#2dd35f; --yellow:#ffd43b; --orange:#ff9d2e; --red:#ff3b3b;
+      --bg:#02050a;
+      --panel:#07101b;
+      --chrome:#e9eef6;
+      --chrome2:#8d98a8;
+      --blue:#1f7cff;
+      --blue2:#63b7ff;
+      --green:#23d365;
+      --yellow:#ffd43b;
+      --orange:#ff9824;
+      --red:#ff3b3b;
+      --text:#f7faff;
+      --muted:#c7d0dd;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0; color:var(--text); font-family:Arial, Helvetica, sans-serif; min-height:100vh;
+      margin:0;
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at 20% 0%, rgba(29,124,255,.35), transparent 34%),
-        radial-gradient(circle at 85% 15%, rgba(255,255,255,.12), transparent 26%),
-        repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 1px, transparent 1px 8px),
-        linear-gradient(145deg,#020305,#08101a 48%,#020305);
+        radial-gradient(circle at 15% 0%, rgba(31,124,255,.38), transparent 32%),
+        radial-gradient(circle at 90% 10%, rgba(255,255,255,.13), transparent 22%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.032) 0 1px, transparent 1px 9px),
+        linear-gradient(145deg,#020409,#08111d 50%,#020409);
+      min-height:100vh;
+      -webkit-font-smoothing:antialiased;
     }
-    .page{width:min(100%, 920px); margin:0 auto; padding:10px}
-    .frame{
-      border:3px solid var(--chrome); border-radius:28px; padding:12px;
+    .app{width:min(100%, 980px); margin:0 auto; padding:8px}
+    .shell{
+      border:3px solid var(--chrome);
+      border-radius:30px;
+      overflow:hidden;
       background:
-        linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,0) 18%),
-        radial-gradient(circle at 50% 0%, rgba(29,124,255,.12), transparent 50%),
+        linear-gradient(150deg, rgba(255,255,255,.16), rgba(255,255,255,.02) 18%, transparent 38%),
+        radial-gradient(circle at top, rgba(31,124,255,.16), transparent 55%),
         repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 1px, transparent 1px 7px),
-        #05080d;
-      box-shadow:inset 0 0 0 2px rgba(0,0,0,.75), inset 0 0 45px rgba(29,124,255,.1), 0 20px 60px rgba(0,0,0,.65);
+        #03070d;
+      box-shadow:inset 0 0 0 2px rgba(0,0,0,.85), inset 0 0 60px rgba(31,124,255,.14), 0 24px 75px rgba(0,0,0,.68);
     }
-    header{display:grid; grid-template-columns:74px 1fr; gap:12px; align-items:center; padding:12px 8px 16px; border-bottom:1px solid rgba(232,237,244,.3)}
+    .topbar{
+      position:sticky;top:0;z-index:5;
+      backdrop-filter:blur(10px);
+      background:linear-gradient(180deg, rgba(3,7,13,.96), rgba(3,7,13,.88));
+      border-bottom:1px solid rgba(233,238,246,.26);
+      padding:12px 12px 10px;
+    }
+    header{display:grid; grid-template-columns:72px 1fr; gap:12px; align-items:center}
     .star{
-      width:74px;height:74px;border-radius:50%; display:grid;place-items:center;
-      background:radial-gradient(circle,#fff 0 26%,#a9b2bf 27% 39%,#07162d 40% 62%,#eef2f6 63%);
-      border:3px solid var(--chrome); color:var(--blue); font-weight:900; font-size:12px; line-height:1.1; text-align:center; letter-spacing:.6px;
-      box-shadow:inset 0 0 18px rgba(0,0,0,.7),0 4px 16px rgba(0,0,0,.55);
+      width:72px;height:72px;border-radius:50%; display:grid;place-items:center;
+      color:#0a58c7; font-weight:900; font-size:12px; line-height:1.08; text-align:center; letter-spacing:.7px;
+      background:radial-gradient(circle,#fff 0 27%,#9fa8b7 28% 39%,#061632 40% 63%,#eef3f8 64%);
+      border:3px solid var(--chrome);
+      box-shadow:inset 0 0 18px rgba(0,0,0,.75),0 5px 18px rgba(0,0,0,.55);
     }
-    h1{margin:0; font-size:clamp(30px,7.5vw,64px); line-height:.9; text-transform:uppercase; letter-spacing:1.2px; color:#f9fbff; text-shadow:0 2px 0 #000,0 0 16px rgba(29,124,255,.6)}
-    .subtitle{margin-top:8px; color:#63b1ff; text-transform:uppercase; font-weight:900; font-size:clamp(14px,3.4vw,28px); letter-spacing:2px}
-    .quick-nav{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:12px 0 2px}
-    .quick-nav a{color:#eaf3ff; text-decoration:none; text-align:center; font-weight:900; text-transform:uppercase; font-size:12px; letter-spacing:.5px; padding:9px 6px; border:1px solid rgba(232,237,244,.25); border-radius:12px; background:linear-gradient(180deg,rgba(29,124,255,.22),rgba(255,255,255,.035))}
-    details{margin-top:11px; border:1px solid rgba(232,237,244,.34); border-radius:16px; background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02)); overflow:hidden}
-    details[open]{box-shadow:0 0 22px rgba(29,124,255,.12)}
-    summary{cursor:pointer; list-style:none; padding:14px; font-size:clamp(18px,4.3vw,30px); font-weight:900; text-transform:uppercase; letter-spacing:1px; background:linear-gradient(90deg,rgba(29,124,255,.28),rgba(255,255,255,.04),rgba(29,124,255,.12)); display:flex; align-items:center; justify-content:space-between; gap:10px; text-shadow:0 0 12px rgba(29,124,255,.55)}
-    summary::-webkit-details-marker{display:none}
-    summary::after{content:"+"; color:#67b5ff; font-size:28px; line-height:1}
-    details[open] summary::after{content:"−"}
-    .content{padding:12px}
-    .grid3,.grid4,.grid2{display:grid;gap:10px}
-    .grid3{grid-template-columns:repeat(3,1fr)} .grid4{grid-template-columns:repeat(4,1fr)} .grid2{grid-template-columns:repeat(2,1fr)}
-    .card{padding:13px; border-radius:14px; border:1px solid rgba(232,237,244,.24); background:linear-gradient(180deg,rgba(0,0,0,.22),rgba(255,255,255,.045)); min-height:100%}
-    h3,p,ul{margin-top:0}
-    h3{margin-bottom:7px; font-size:21px; text-transform:uppercase; letter-spacing:.5px}
-    .blue{color:#5fb2ff}
-    p{color:#f2f5fb;margin-bottom:8px}
-    ul{margin:6px 0 0; padding:0; list-style:none}
-    li{margin:6px 0; padding-left:22px; position:relative; color:#eaf0f8}
-    li::before{content:"✓"; position:absolute; left:0; color:#5fb2ff; font-weight:900}
-    .note{margin-top:10px; padding:10px; text-align:center; border-radius:12px; border:1px solid rgba(29,124,255,.65); background:rgba(29,124,255,.13); font-weight:900; text-transform:uppercase; letter-spacing:1px}
-    .low{border-color:rgba(45,211,95,.65)} .low h3{color:var(--green)}
-    .mod{border-color:rgba(255,212,59,.65)} .mod h3{color:var(--yellow)}
-    .elev{border-color:rgba(255,157,46,.65)} .elev h3{color:var(--orange)}
-    .high{border-color:rgba(255,59,59,.7)} .high h3{color:var(--red)}
-    .enh h3{color:#ff5555}.redr h3{color:#55df7b}.questions h3,.mitigation h3{color:#5fb2ff}
-    .quote{margin-top:12px; padding:15px 12px; border-radius:16px; border:1px solid rgba(232,237,244,.34); text-align:center; font-size:clamp(18px,4.6vw,34px); font-style:italic; font-weight:900; text-transform:uppercase; color:#e9f3ff; background:linear-gradient(90deg,rgba(29,124,255,.18),rgba(255,255,255,.03),rgba(29,124,255,.18)); text-shadow:0 0 12px rgba(29,124,255,.6)}
-    footer{margin-top:12px; padding:13px 10px 4px; text-align:center; color:var(--muted); font-size:13px; line-height:1.4}
-    footer b{display:block; color:#67b5ff; text-transform:uppercase; letter-spacing:2px; margin-bottom:4px}
+    h1{margin:0;font-size:clamp(30px,7.4vw,68px);line-height:.88;text-transform:uppercase;letter-spacing:1px;color:#fbfdff;text-shadow:0 2px 0 #000,0 0 18px rgba(31,124,255,.62)}
+    .sub{margin-top:8px;color:var(--blue2);text-transform:uppercase;letter-spacing:2.2px;font-weight:900;font-size:clamp(13px,3.4vw,28px)}
+    .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+    .nav a{display:block;text-decoration:none;color:#edf6ff;text-align:center;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.45px;border:1px solid rgba(233,238,246,.25);border-radius:13px;padding:9px 5px;background:linear-gradient(180deg,rgba(31,124,255,.25),rgba(255,255,255,.035));box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+    .body{padding:12px}
+    .hero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+    .hero-card{border:1px solid rgba(233,238,246,.28);border-radius:18px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.025));box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+    .hero-card h2{margin:0 0 8px;text-transform:uppercase;text-align:center;color:#79c0ff;font-size:20px}
+    .hero-card p{margin:0;text-align:center;color:#dfe8f5;font-weight:700}
+
+    /* TRUE THREE-LEGGED STOOL: exactly 3 legs */
+    .stool-wrap{height:130px;display:flex;justify-content:center;align-items:center;perspective:500px}
+    .stool{position:relative;width:150px;height:115px;transform:rotateX(7deg)}
+    .seat{
+      position:absolute;left:20px;top:3px;width:110px;height:34px;border-radius:55%/50%;
+      background:linear-gradient(180deg,#ffffff 0%,#b7c0cd 42%,#606b7a 100%);
+      border:2px solid #f9fbff;
+      box-shadow:inset 0 4px 8px rgba(255,255,255,.55), inset 0 -8px 14px rgba(0,0,0,.5), 0 9px 18px rgba(0,0,0,.55);
+      z-index:3;
+    }
+    .stool-leg{
+      position:absolute;top:30px;width:18px;height:78px;border-radius:11px;
+      background:linear-gradient(90deg,#ffffff 0%,#a7b1bf 35%,#56616f 65%,#f8fbff 100%);
+      border:1px solid rgba(255,255,255,.75);
+      box-shadow:inset 0 0 8px rgba(255,255,255,.35),0 7px 12px rgba(0,0,0,.5);
+      z-index:2;
+    }
+    .stool-leg.left{left:28px;transform:rotate(15deg)}
+    .stool-leg.center{left:66px;height:84px;top:28px;z-index:1}
+    .stool-leg.right{left:104px;transform:rotate(-15deg)}
+    .leg-label{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg);
+      font-size:8px;font-weight:900;color:#0b326c;letter-spacing:.6px;text-shadow:0 1px 0 rgba(255,255,255,.7);
+    }
+    .concern-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+    .pill{text-align:center;border-radius:999px;padding:8px 4px;color:#05070a;font-size:11px;font-weight:900;text-transform:uppercase}
+    .pill.low{background:var(--green)} .pill.mod{background:var(--yellow)} .pill.elev{background:var(--orange)} .pill.high{background:var(--red);color:#fff}
+    details{margin-top:11px;border:1px solid rgba(233,238,246,.32);border-radius:18px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02))}
+    details[open]{box-shadow:0 0 24px rgba(31,124,255,.12)}
+    summary{cursor:pointer;list-style:none;padding:14px;font-weight:900;font-size:clamp(18px,4.3vw,31px);text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;gap:8px;background:linear-gradient(90deg,rgba(31,124,255,.32),rgba(255,255,255,.04),rgba(31,124,255,.14));text-shadow:0 0 13px rgba(31,124,255,.6)}
+    summary::-webkit-details-marker{display:none} summary::after{content:"+";color:#75bfff;font-size:30px;line-height:1} details[open] summary::after{content:"−"}
+    .content{padding:12px}.grid3,.grid4,.grid2{display:grid;gap:10px}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}
+    .card{padding:13px;border-radius:15px;border:1px solid rgba(233,238,246,.23);background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(255,255,255,.045));min-height:100%}
+    h3{margin:0 0 8px;text-transform:uppercase;letter-spacing:.5px;font-size:21px}.blue{color:#68b7ff}p{margin:0 0 8px;color:#f1f5fb}ul{list-style:none;margin:6px 0 0;padding:0}
+    li{position:relative;padding-left:23px;margin:7px 0;color:#eaf0f8}li::before{content:"✓";position:absolute;left:0;color:#68b7ff;font-weight:900}
+    .note{margin-top:10px;padding:10px;border:1px solid rgba(31,124,255,.66);border-radius:13px;text-align:center;background:rgba(31,124,255,.13);font-weight:900;text-transform:uppercase;letter-spacing:1px}
+    .lowCard{border-color:rgba(37,211,102,.66)}.lowCard h3{color:var(--green)}.modCard{border-color:rgba(255,212,56,.66)}.modCard h3{color:var(--yellow)}.elevCard{border-color:rgba(255,152,36,.66)}.elevCard h3{color:var(--orange)}.highCard{border-color:rgba(255,59,59,.72)}.highCard h3{color:var(--red)}
+    .enh h3{color:#ff5a5a}.redr h3{color:#56e684}.questions h3,.mitigation h3{color:#68b7ff}
+    .quote{margin-top:12px;border:1px solid rgba(233,238,246,.34);border-radius:18px;padding:16px 12px;text-align:center;font-size:clamp(19px,4.8vw,36px);text-transform:uppercase;font-style:italic;font-weight:900;color:#eef7ff;background:linear-gradient(90deg,rgba(31,124,255,.19),rgba(255,255,255,.035),rgba(31,124,255,.19));text-shadow:0 0 14px rgba(31,124,255,.65)}
+    footer{padding:14px 10px 6px;text-align:center;color:var(--muted);font-size:13px;line-height:1.42}footer b{display:block;color:#70bdff;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px}
     @media(max-width:760px){
-      .page{padding:7px}.frame{border-radius:20px;padding:9px}header{grid-template-columns:60px 1fr;padding:10px 4px 14px}.star{width:60px;height:60px;font-size:10px}
-      .quick-nav{grid-template-columns:repeat(2,1fr)}.grid3,.grid4,.grid2{grid-template-columns:1fr}.content{padding:10px}summary{padding:13px 12px}
+      .app{padding:7px}.shell{border-radius:22px}header{grid-template-columns:60px 1fr}.star{width:60px;height:60px;font-size:10px}.nav{grid-template-columns:repeat(2,1fr)}.hero,.grid2,.grid3,.grid4{grid-template-columns:1fr}.topbar{padding:12px 10px 9px}.body{padding:10px}
     }
   </style>
 </head>
 <body>
-  <main class="page"><div class="frame">
-    <header><div class="star">1789<br>USMS</div><div><h1>Threat Investigations</h1><div class="subtitle">Investigator Quick Reference</div></div></header>
-    <nav class="quick-nav"><a href="#stool">Stool</a><a href="#levels">Concern</a><a href="#risk">Risk</a><a href="#questions">Questions</a><a href="#mitigation">Mitigation</a><a href="#footer">Reference</a></nav>
+  <main class="app">
+    <div class="shell">
+      <div class="topbar">
+        <header>
+          <div class="star">1789<br>USMS</div>
+          <div>
+            <h1>Threat Investigations</h1>
+            <div class="sub">Field Reference</div>
+          </div>
+        </header>
+        <nav class="nav">
+          <a href="#stool">Stool</a><a href="#levels">Concern</a><a href="#risk">Risk</a>
+          <a href="#questions">Questions</a><a href="#mitigation">Mitigation</a><a href="#footer">Reference</a>
+        </nav>
+      </div>
 
-    <details id="stool" open><summary>🪑 Three-Legged Stool</summary><div class="content"><div class="grid3">
-      <div class="card"><h3>Motive <span class="blue">(WHY)</span></h3><p>Underlying grievance behind a Person of Concern's behavior.</p><ul><li>What is driving the grievance?</li><li>Why this target?</li><li>Why now?</li></ul></div>
-      <div class="card"><h3>Intent <span class="blue">(WHAT)</span></h3><p>The conscious objective to achieve a certain result.</p><ul><li>What outcome does the subject want?</li><li>Has intent been communicated?</li><li>Is intent increasing?</li></ul></div>
-      <div class="card"><h3>Ability <span class="blue">(HOW)</span></h3><p>Capacity, resources, and physical/mental capability to carry out an act of violence.</p><ul><li>Access to the target?</li><li>Access to weapons or means?</li><li>Skills or experience?</li><li>Physical/mental capability?</li></ul></div>
-    </div><div class="note">Without all three legs, the stool cannot stand.</div></div></details>
+      <div class="body">
+        <section class="hero">
+          <div class="hero-card">
+            <div class="stool-wrap">
+              <div class="stool" aria-label="Three-legged stool: Motive, Intent, Ability">
+                <div class="seat"></div>
+                <div class="stool-leg left"><span class="leg-label">MOTIVE</span></div>
+                <div class="stool-leg center"><span class="leg-label">INTENT</span></div>
+                <div class="stool-leg right"><span class="leg-label">ABILITY</span></div>
+              </div>
+            </div>
+            <h2>Motive • Intent • Ability</h2>
+            <p>Without all three legs, the stool cannot stand.</p>
+          </div>
+          <div class="hero-card">
+            <h2>Levels of Concern</h2>
+            <p>Quickly frame observed behavior and guide mitigation.</p>
+            <div class="concern-strip">
+              <div class="pill low">Low</div><div class="pill mod">Moderate</div><div class="pill elev">Elevated</div><div class="pill high">High</div>
+            </div>
+          </div>
+        </section>
 
-    <details id="levels" open><summary>🚦 Levels of Concern</summary><div class="content"><div class="grid4">
-      <div class="card low"><h3>● Low</h3><ul><li>General grievances</li><li>No target identified</li><li>No concerning behaviors</li></ul></div>
-      <div class="card mod"><h3>● Moderate</h3><ul><li>Target identified</li><li>Fixation</li><li>Leakage</li><li>Escalating rhetoric</li><li>Growing sense of injustice</li></ul></div>
-      <div class="card elev"><h3>● Elevated</h3><ul><li>Surveillance</li><li>Research / Planning</li><li>Weapon acquisition</li><li>Significant behavioral changes</li><li>Increasing commitment</li></ul></div>
-      <div class="card high"><h3>● High</h3><ul><li>Operational planning</li><li>Security probing</li><li>Dry runs</li><li>Travel toward target</li><li>Pre-attack preparation</li><li>Resource acquisition</li></ul></div>
-    </div></div></details>
+        <details id="stool" open>
+          <summary>Three-Legged Stool</summary>
+          <div class="content">
+            <div class="grid3">
+              <div class="card"><h3>Motive <span class="blue">(WHY)</span></h3><p>Underlying grievance behind a Person of Concern's behavior.</p><ul><li>What is driving the grievance?</li><li>Why this target?</li><li>Why now?</li></ul></div>
+              <div class="card"><h3>Intent <span class="blue">(WHAT)</span></h3><p>The conscious objective to achieve a certain result.</p><ul><li>What outcome does the subject want?</li><li>Has intent been communicated?</li><li>Is intent increasing?</li></ul></div>
+              <div class="card"><h3>Ability <span class="blue">(HOW)</span></h3><p>Capacity, resources, and physical/mental capability to carry out an act of violence.</p><ul><li>Access to the target?</li><li>Access to weapons or means?</li><li>Skills or experience?</li><li>Physical/mental capability?</li></ul></div>
+            </div>
+            <div class="note">Without all three legs, the stool cannot stand.</div>
+          </div>
+        </details>
 
-    <details id="risk" open><summary>⚠️ Risk Enhancers & Reducers</summary><div class="content"><div class="grid2">
-      <div class="card enh"><h3>Risk Enhancers</h3><ul><li>Targeted grievance</li><li>Fixation</li><li>Leakage</li><li>Identification with previous attackers</li><li>Moral outrage</li><li>Major life stressor</li><li>Social isolation</li><li>Substance abuse</li><li>Domestic violence history</li><li>Weapon acquisition</li><li>Surveillance</li><li>Security probing</li><li>Triggering event</li><li>Violent rehearsal</li><li>Escalating communications</li></ul></div>
-      <div class="card redr"><h3>Risk Reducers</h3><ul><li>Family support</li><li>Positive relationships</li><li>Stable employment</li><li>Mental health treatment</li><li>Means reduction</li><li>Protective monitoring</li><li>Community involvement</li><li>Future orientation</li><li>Passage of time</li></ul></div>
-    </div></div></details>
+        <details id="levels" open>
+          <summary>Levels of Concern</summary>
+          <div class="content">
+            <div class="grid4">
+              <div class="card lowCard"><h3>● Low</h3><ul><li>General grievances</li><li>No target identified</li><li>No concerning behaviors</li></ul></div>
+              <div class="card modCard"><h3>● Moderate</h3><ul><li>Target identified</li><li>Fixation</li><li>Leakage</li><li>Escalating rhetoric</li><li>Growing sense of injustice</li></ul></div>
+              <div class="card elevCard"><h3>● Elevated</h3><ul><li>Surveillance</li><li>Research / Planning</li><li>Weapon acquisition</li><li>Significant behavioral changes</li><li>Increasing commitment</li></ul></div>
+              <div class="card highCard"><h3>● High</h3><ul><li>Operational planning</li><li>Security probing</li><li>Dry runs</li><li>Travel toward target</li><li>Pre-attack preparation</li><li>Resource acquisition</li></ul></div>
+            </div>
+          </div>
+        </details>
 
-    <details id="questions" open><summary>❓ Investigative Questions</summary><div class="content"><div class="card questions"><h3>Key Questions</h3><ul><li>What changed?</li><li>Why now?</li><li>Why this target?</li><li>What evidence supports Motive?</li><li>What evidence supports Intent?</li><li>What evidence supports Ability?</li><li>What interventions could reduce risk?</li></ul></div></div></details>
+        <details id="risk" open>
+          <summary>Risk Enhancers & Reducers</summary>
+          <div class="content">
+            <div class="grid2">
+              <div class="card enh"><h3>Risk Enhancers</h3><ul><li>Targeted grievance</li><li>Fixation</li><li>Leakage</li><li>Identification with previous attackers</li><li>Moral outrage</li><li>Major life stressor</li><li>Social isolation</li><li>Substance abuse</li><li>Domestic violence history</li><li>Weapon acquisition</li><li>Surveillance</li><li>Security probing</li><li>Triggering event</li><li>Violent rehearsal</li><li>Escalating communications</li></ul></div>
+              <div class="card redr"><h3>Risk Reducers</h3><ul><li>Family support</li><li>Positive relationships</li><li>Stable employment</li><li>Mental health treatment</li><li>Means reduction</li><li>Protective monitoring</li><li>Community involvement</li><li>Future orientation</li><li>Passage of time</li></ul></div>
+            </div>
+          </div>
+        </details>
 
-    <details id="mitigation" open><summary>🎯 Mitigation Strategies</summary><div class="content"><div class="card mitigation"><h3>Reduce Risk</h3><ul><li>Reduce Motive</li><li>Reduce Intent</li><li>Reduce Ability</li><li>Increase protective factors</li><li>Reduce opportunity for violence</li><li>Continue assessment and reassessment</li></ul></div></div></details>
+        <details id="questions" open>
+          <summary>Investigative Questions</summary>
+          <div class="content"><div class="card questions"><h3>Key Questions</h3><ul><li>What changed?</li><li>Why now?</li><li>Why this target?</li><li>What evidence supports Motive?</li><li>What evidence supports Intent?</li><li>What evidence supports Ability?</li><li>What interventions could reduce risk?</li></ul></div></div>
+        </details>
 
-    <div class="quote">“Sometimes you just have to let a case breathe.”</div>
-    <footer id="footer"><b>Training Reference Only</b>This guide is intended as an educational aid and should be used in conjunction with applicable agency policy, training, and established investigative procedures.</footer>
-  </div></main>
+        <details id="mitigation" open>
+          <summary>Mitigation Strategies</summary>
+          <div class="content"><div class="card mitigation"><h3>Reduce Risk</h3><ul><li>Reduce Motive</li><li>Reduce Intent</li><li>Reduce Ability</li><li>Increase protective factors</li><li>Reduce opportunity for violence</li><li>Continue assessment and reassessment</li></ul></div></div>
+        </details>
+
+        <div class="quote">“Sometimes you just have to let a case breathe.”</div>
+        <footer id="footer"><b>Training Reference Only</b>This guide is intended as an educational aid and should be used in conjunction with applicable agency policy, training, and established investigative procedures.</footer>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
