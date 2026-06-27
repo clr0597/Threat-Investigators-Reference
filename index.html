@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Threat Investigations | Investigator Quick Reference</title>
+  <meta name="description" content="Threat Investigations Investigator Quick Reference training aid." />
+  <style>
+    :root{
+      --bg:#05070a;
+      --panel:#0b0f14;
+      --panel2:#101722;
+      --chrome:#d7dce2;
+      --chrome2:#7f8791;
+      --blue:#1e73ff;
+      --blue2:#0b2a58;
+      --text:#f4f7fb;
+      --muted:#b8c0cc;
+      --green:#2fd35b;
+      --yellow:#ffd22b;
+      --orange:#ff961f;
+      --red:#ff3838;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top left, rgba(30,115,255,.28), transparent 35%),
+        radial-gradient(circle at top right, rgba(255,255,255,.12), transparent 25%),
+        linear-gradient(135deg,#020305,#0a0d12 45%,#030405);
+      color:var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height:1.35;
+    }
+    .wrap{
+      width:min(100%, 860px);
+      margin:0 auto;
+      padding:14px;
+    }
+    .coin{
+      border:3px solid var(--chrome);
+      border-radius:26px;
+      padding:14px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,0) 18%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 1px, transparent 1px 7px),
+        var(--bg);
+      box-shadow:0 0 0 3px #111, inset 0 0 0 2px rgba(255,255,255,.12), 0 20px 60px rgba(0,0,0,.55);
+    }
+    header{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      padding:8px 6px 14px;
+      border-bottom:1px solid rgba(215,220,226,.3);
+    }
+    .badge{
+      width:82px;height:82px;border-radius:50%;
+      border:4px solid var(--chrome);
+      display:grid;place-items:center;
+      color:var(--blue);
+      font-weight:900;
+      background:radial-gradient(circle,#f4f7fb 0 34%,#9da5af 35% 46%,#06142c 47% 68%,#d9dde2 69%);
+      box-shadow:inset 0 0 18px rgba(0,0,0,.6),0 4px 14px rgba(0,0,0,.5);
+      flex:0 0 auto;
+      text-align:center;
+      font-size:12px;
+      letter-spacing:.5px;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(28px, 7vw, 58px);
+      line-height:.95;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:#f6f8fb;
+      text-shadow:0 2px 0 #000, 0 0 16px rgba(30,115,255,.45);
+    }
+    .sub{
+      color:#36a2ff;
+      font-weight:800;
+      font-size:clamp(16px,3.4vw,30px);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      margin-top:5px;
+    }
+    .section{
+      margin-top:14px;
+      border:1px solid rgba(215,220,226,.35);
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
+      overflow:hidden;
+    }
+    .section-title{
+      padding:9px 12px;
+      text-align:center;
+      font-weight:900;
+      font-size:clamp(18px,4vw,30px);
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      color:#eaf2ff;
+      background:linear-gradient(90deg, transparent, rgba(30,115,255,.35), transparent);
+      border-bottom:1px solid rgba(215,220,226,.24);
+      text-shadow:0 0 12px rgba(30,115,255,.7);
+    }
+    .grid3,.grid4,.grid2{display:grid;gap:10px;padding:10px}
+    .grid3{grid-template-columns:repeat(3,1fr)}
+    .grid4{grid-template-columns:repeat(4,1fr)}
+    .grid2{grid-template-columns:repeat(2,1fr)}
+    .card{
+      border:1px solid rgba(215,220,226,.22);
+      border-radius:12px;
+      padding:12px;
+      background:linear-gradient(180deg, rgba(0,0,0,.25), rgba(255,255,255,.035));
+      min-height:100%;
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size:22px;
+      color:#fff;
+      text-transform:uppercase;
+      text-shadow:0 0 9px rgba(30,115,255,.45);
+    }
+    .why{color:#4aa3ff;font-weight:900}
+    p{margin:0 0 8px;color:#f1f4f8}
+    ul{margin:8px 0 0 18px;padding:0}
+    li{margin:4px 0;color:#e9eef6}
+    .note{
+      margin:0 10px 10px;
+      padding:9px 12px;
+      border:1px solid rgba(30,115,255,.55);
+      border-radius:10px;
+      text-align:center;
+      color:#dfefff;
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      background:rgba(30,115,255,.12);
+    }
+    .level h3{font-size:24px}
+    .low{border-color:rgba(47,211,91,.55)} .low h3{color:var(--green)}
+    .mod{border-color:rgba(255,210,43,.55)} .mod h3{color:var(--yellow)}
+    .elev{border-color:rgba(255,150,31,.55)} .elev h3{color:var(--orange)}
+    .high{border-color:rgba(255,56,56,.6)} .high h3{color:var(--red)}
+    .risk-enh h3{color:#ff4a4a}
+    .risk-red h3{color:#4ee070}
+    .questions h3,.mitigation h3{color:#4aa3ff}
+    .quote{
+      margin-top:14px;
+      padding:14px 12px;
+      border:1px solid rgba(215,220,226,.35);
+      border-radius:14px;
+      font-weight:900;
+      text-transform:uppercase;
+      font-style:italic;
+      text-align:center;
+      font-size:clamp(18px,4.5vw,32px);
+      color:#dbe9ff;
+      text-shadow:0 0 10px rgba(30,115,255,.6);
+    }
+    footer{
+      color:#c4cad3;
+      text-align:center;
+      font-size:13px;
+      padding:14px 6px 2px;
+    }
+    footer b{color:#57a8ff;text-transform:uppercase;letter-spacing:2px}
+    @media (max-width:720px){
+      .wrap{padding:8px}
+      .coin{border-radius:18px;padding:10px}
+      header{align-items:flex-start}
+      .badge{width:62px;height:62px;font-size:9px;border-width:3px}
+      .grid3,.grid4,.grid2{grid-template-columns:1fr}
+      .card h3{font-size:21px}
+      .section{margin-top:10px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="coin">
+      <header>
+        <div class="badge">1789<br>USMS</div>
+        <div>
+          <h1>Threat Investigations</h1>
+          <div class="sub">Investigator Quick Reference</div>
+        </div>
+      </header>
+
+      <section class="section">
+        <div class="section-title">Three-Legged Stool</div>
+        <div class="grid3">
+          <div class="card">
+            <h3>Motive <span class="why">(WHY)</span></h3>
+            <p>Underlying grievance behind a Person of Concern's behavior.</p>
+            <ul>
+              <li>What is driving the grievance?</li>
+              <li>Why this target?</li>
+              <li>Why now?</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Intent <span class="why">(WHAT)</span></h3>
+            <p>The conscious objective to achieve a certain result.</p>
+            <ul>
+              <li>What outcome does the subject want?</li>
+              <li>Has intent been communicated?</li>
+              <li>Is intent increasing?</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Ability <span class="why">(HOW)</span></h3>
+            <p>Capacity, resources, and physical/mental capability to carry out an act of violence.</p>
+            <ul>
+              <li>Access to the target?</li>
+              <li>Access to weapons or means?</li>
+              <li>Skills or experience?</li>
+              <li>Physical/mental capability?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="note">Without all three legs, the stool cannot stand.</div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">Levels of Concern</div>
+        <div class="grid4">
+          <div class="card level low">
+            <h3>● Low</h3>
+            <ul>
+              <li>General grievances</li>
+              <li>No target identified</li>
+              <li>No concerning behaviors</li>
+            </ul>
+          </div>
+          <div class="card level mod">
+            <h3>● Moderate</h3>
+            <ul>
+              <li>Target identified</li>
+              <li>Fixation</li>
+              <li>Leakage</li>
+              <li>Escalating rhetoric</li>
+              <li>Growing sense of injustice</li>
+            </ul>
+          </div>
+          <div class="card level elev">
+            <h3>● Elevated</h3>
+            <ul>
+              <li>Surveillance</li>
+              <li>Research / Planning</li>
+              <li>Weapon acquisition</li>
+              <li>Significant behavioral changes</li>
+              <li>Increasing commitment</li>
+            </ul>
+          </div>
+          <div class="card level high">
+            <h3>● High</h3>
+            <ul>
+              <li>Operational planning</li>
+              <li>Security probing</li>
+              <li>Dry runs</li>
+              <li>Travel toward target</li>
+              <li>Pre-attack preparation</li>
+              <li>Resource acquisition</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="grid2">
+          <div class="card risk-enh">
+            <h3>Risk Enhancers</h3>
+            <ul>
+              <li>Targeted grievance</li>
+              <li>Fixation</li>
+              <li>Leakage</li>
+              <li>Identification with previous attackers</li>
+              <li>Moral outrage</li>
+              <li>Major life stressor</li>
+              <li>Social isolation</li>
+              <li>Substance abuse</li>
+              <li>Domestic violence history</li>
+              <li>Weapon acquisition</li>
+              <li>Surveillance</li>
+              <li>Security probing</li>
+              <li>Triggering event</li>
+              <li>Violent rehearsal</li>
+              <li>Escalating communications</li>
+            </ul>
+          </div>
+          <div class="card risk-red">
+            <h3>Risk Reducers</h3>
+            <ul>
+              <li>Family support</li>
+              <li>Positive relationships</li>
+              <li>Stable employment</li>
+              <li>Mental health treatment</li>
+              <li>Means reduction</li>
+              <li>Protective monitoring</li>
+              <li>Community involvement</li>
+              <li>Future orientation</li>
+              <li>Passage of time</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="grid2">
+          <div class="card questions">
+            <h3>Investigative Questions</h3>
+            <ul>
+              <li>What changed?</li>
+              <li>Why now?</li>
+              <li>Why this target?</li>
+              <li>What evidence supports Motive?</li>
+              <li>What evidence supports Intent?</li>
+              <li>What evidence supports Ability?</li>
+              <li>What interventions could reduce risk?</li>
+            </ul>
+          </div>
+          <div class="card mitigation">
+            <h3>Mitigation Strategies</h3>
+            <ul>
+              <li>Reduce Motive</li>
+              <li>Reduce Intent</li>
+              <li>Reduce Ability</li>
+              <li>Increase protective factors</li>
+              <li>Continue assessment and monitoring</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="quote">“Sometimes you just have to let a case breathe.”</div>
+
+      <footer>
+        <b>Training Reference Only</b><br>
+        This guide is intended as an educational aid and should be used in conjunction with applicable agency policy, training, and established investigative procedures.
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
